@@ -1,95 +1,72 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client';
+import { useState,useEffect } from 'react';
+import Sidebar from '../components/Sidebar';
+import styles from '../styles/page.module.css';
+import Movie from '../components/Movie';
+import Http from '../api/Http';
+import { useContext } from "react";
+import { Message_data } from "../context/context";
 
-export default function Home() {
+
+function Page() {
+
+  const { allMovies, movies,setMovies,setGenres,cinemaId,setAllMovies,genreFilter,titleFilter} = useContext(Message_data);
+
+  const [loader,setLoader]=useState(true);
+
+  const fetchData = async () => {
+    const getList = await Http.getMovies(cinemaId);
+
+    //get genres
+    let genres=new Set;
+    getList.data.forEach((t) => {
+      genres.add(t.genre);
+    });
+    
+    setGenres(Array.from(genres).map((t,idx) => {
+      return {name: t,id: idx}
+    }));
+    setMovies(getList.data);
+    setAllMovies(getList.data);
+    setLoader(false);
+
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [cinemaId]);
+
+  useEffect(() => {
+      let newList=allMovies.slice(0);
+      if (genreFilter.length){
+        newList=newList.filter(movie =>{
+          return  movie.genre===genreFilter;
+        });
+      }
+      if (titleFilter.length){
+        newList=newList.filter(movie =>{
+          return movie.title.toLowerCase().includes(titleFilter.toLowerCase())
+        });
+      }
+      setMovies(newList);
+  },[genreFilter,titleFilter,allMovies]);
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Sidebar />
+      <section>
+        {loader ? (
+          <h1 style={{display: 'flex',justifyContent: 'center',alignItems: 'center'}}>Загружается...</h1>
+        ) : (
+          movies.map((t, idx) => {
+            return(
+              <Movie data={t} key={idx} />
+            )
+          })
+        )}
+      </section>
     </main>
   )
 }
+
+export default Page;
