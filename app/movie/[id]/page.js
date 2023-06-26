@@ -10,7 +10,7 @@ import { Message_data } from '@/context/context';
 
 function SingleMovie({ params }) {
 
-  const {state,dispatch}=useContext(Message_data);
+  const {state,dispatch,t}=useContext(Message_data);
   const [movieInfo,setMovieInfo]=useState({});
   const [loader,setLoader]=useState(false);
   const [comments,setComments]=useState([]);
@@ -43,11 +43,11 @@ function SingleMovie({ params }) {
               <div className={styles.movie_items}>
                 <button className={!(state[movieInfo.id] ? state[movieInfo.id].count:0) ? styles.btn_minus : styles.btn_add} onClick={() => dispatch({ type: 'DECREMENT', movie: movieInfo})}>-</button>
                 <p style={{color: 'black'}}>{state[movieInfo.id] ? state[movieInfo.id].count:0}</p>
-                <button className={(Object.values(state).reduce((a, b) => a + (b?.count || 0), 0)) >= 30 ? styles.btn_minus : styles.btn_add} onClick={() => dispatch({ type: 'INCREMENT', movie: movieInfo})}>+</button>
+                <button className={(state[movieInfo.id] ? state[movieInfo.id].count:0) >= 30 ? styles.btn_minus : styles.btn_add} onClick={() => dispatch({ type: 'INCREMENT', movie: movieInfo})}>+</button>
               </div>
             </div>
             <div style={{marginTop: '24px',fontSize: '20px'}}>
-              <strong>Жанр: </strong>{movieInfo.genre}
+              <strong>Жанр: </strong>{t(movieInfo.genre)}
             </div>
             <div style={{marginTop: '24px',fontSize: '20px'}}>
               <strong>Год выпуска: </strong>{movieInfo.releaseYear}

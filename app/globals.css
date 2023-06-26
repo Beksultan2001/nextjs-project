@@ -95,6 +95,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb)); */
+      /* max-width: 100vw; */
+    display: flex;
+    flex-direction: column; /* This will make the main elements stack vertically */
+    min-height: 100vh;
 }
 
 a {
@@ -103,5 +107,5 @@ a {
 }
 
 #modal-root{
-  z-index: 2;
+  z-index: 10;
 }

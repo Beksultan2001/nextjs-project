@@ -11,7 +11,7 @@ export const movieReducer = (state, action) => {
     }
     switch (action.type) {
       case 'INCREMENT':
-        let amount=Object.values(state).reduce((a, b) => a + (b?.count || 0), 0);
+        let amount=state[movieId].count;
         if (amount>=30){
             return state;
         }

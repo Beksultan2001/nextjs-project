@@ -38,7 +38,7 @@ function Page() {
 
   useEffect(() => {
       let newList=allMovies.slice(0);
-      if (genreFilter.length){
+      if (genreFilter.length && genreFilter != 'Не выбран'){
         newList=newList.filter(movie =>{
           return  movie.genre===genreFilter;
         });

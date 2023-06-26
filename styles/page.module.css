@@ -13,6 +13,7 @@
   top: 0;
   width: 100%;
   z-index: 1;
+  /* height: 110px; */
 }
 
 .footer{
@@ -53,7 +54,8 @@
   color: var(--text-primary, #1B1F23);
   position: sticky;
   top: 110px;
-  height: 85vh;
+  /* height: 85vh; */
+  height: calc(100vh - 110px); /* Assuming header height is 110px */
   z-index: 0;
 }
 .sidebar > h1{
@@ -71,8 +73,9 @@
   padding: 24px 32px;
   background-color: #E0E0E0;
   width: 100%;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   grid-column-gap: 23px;
+  
 }
 
 /* single_movie */

@@ -18,7 +18,7 @@ export default function Navbar() {
         </Link>
         <Link href={'/store'} passHref>
           <div className={styles.header_items}>
-            <span>{Object.values(state).reduce((a, b) => a + (b?.count || 0), 0)}</span>
+            <span style={{display: Object.values(state).reduce((a, b) => a + (b?.count || 0), 0) ? 'block' : 'none'}}>{Object.values(state).reduce((a, b) => a + (b?.count || 0), 0)}</span>
             <Bag />
           </div>
         </Link>

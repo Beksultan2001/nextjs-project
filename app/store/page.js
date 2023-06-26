@@ -9,7 +9,8 @@ function Page() {
     const {state} = useContext(Message_data);
 
   return (
-    <section style={{height: '81vh',  backgroundColor: '#E0E0E0',padding: '24px 32px'}}>
+    <section style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '81vh', backgroundColor: '#E0E0E0', padding: '24px 32px'}}>
+    <div>
         {
             Object.values(state).map((t) => {
                 return (
@@ -17,7 +18,11 @@ function Page() {
                 )
             })
         }
-    </section>
+    </div>
+    <div style={{display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', padding: '24px', borderRadius: '8px'}}>
+        <strong>Итого билетов:</strong><strong>7</strong>
+    </div>
+</section>
   )
 }
 

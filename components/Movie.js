@@ -11,7 +11,7 @@ import Modal from './Modal';
 function Movie({data,handleRemove}) {
 
   const {title,posterUrl,genre,id}=data;
-  const {state,dispatch}=useContext(Message_data);
+  const {state,dispatch,t}=useContext(Message_data);
 
   const [showModal,setShowModal]=useState(false);
 
@@ -30,14 +30,14 @@ function Movie({data,handleRemove}) {
                 <h3 style={{fontWeight: 600,color: 'black',fontSize: 20}}>{title}</h3>
               </Link>
               <div className={styles.movie_items}>
-                <button className={!(state[id] ? state[id].count:0) ? styles.btn_minus : styles.btn_add} onClick={() => dispatch({ type: 'DECREMENT', movie: data})}>-</button>
+                <button className={!(state[id] ? state[id].count:0) ? styles.btn_minus : styles.btn_add} onClick={() => (handleRemove && (state[id] ? state[id]?.count:1) <= 1) ?  setShowModal(true) : dispatch({ type: 'DECREMENT', movie: data})}>-</button>
                 <p style={{color: 'black'}}>{state[id] ? state[id].count:0}</p>
-                <button className={(Object.values(state).reduce((a, b) => a + (b?.count || 0), 0)) >= 30 ? styles.btn_minus : styles.btn_add}   onClick={() => dispatch({ type: 'INCREMENT', movie: data})}>+
+                <button className={(state[id] ? state[id].count:0)>= 30 ? styles.btn_minus : styles.btn_add}   onClick={() => dispatch({ type: 'INCREMENT', movie: data})}>+
                 </button>
                 {handleRemove && <span className={styles.removeItem} onClick={() => setShowModal(true)}><Close /></span>}
               </div>
             </div>
-            <p style={{marginTop: 8,color: 'black',fontStyle: 'Italic'}}>{genre}</p>
+            <p style={{marginTop: 8,color: 'black',fontStyle: 'Italic'}}>{t(genre)}</p>
           </div>
       </div>
       <Modal show={showModal} onClose={setShowModal}>

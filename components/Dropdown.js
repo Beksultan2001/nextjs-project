@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styles from '../styles/page.module.css';
 import Expand from '../public/icons/Expand';
 import Collapsed from '../public/icons/Collapsed';
+import { Message_data } from "@/context/context";
 
 
-function DropDown({title,options,callback}) {
+function DropDown({title,options,callback,placeholder,defaultOption}) {
 
+  const {t}=useContext(Message_data);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const dropdownRef = useRef(null);
@@ -32,7 +34,7 @@ function DropDown({title,options,callback}) {
 
   const onOptionClicked = value => () => {
     callback(value);
-    setSelectedOption(value.name);
+    // setSelectedOption(value.name);
     setIsOpen(false);
   };
 
@@ -41,8 +43,8 @@ function DropDown({title,options,callback}) {
     <label>
         {title}
         <div className={styles.dropdownContainer} ref={dropdownRef}>
-            <div className={styles.dropdownHeader} style={{display: 'flex',justifyContent: 'space-between',borderColor: (isOpen ? '#F50' : '#E1E3E6'),color: '#999FA6'}} onClick={toggling}>
-                {selectedOption || "Select..."}
+            <div className={styles.dropdownHeader} style={{display: 'flex',justifyContent: 'space-between',borderColor: (isOpen ? '#F50' : '#E1E3E6'),color: (isOpen || selectedOption? 'black':'#999FA6')}} onClick={toggling}>
+                {t(defaultOption) || placeholder}
                 {isOpen ? <Collapsed /> : <Expand /> }
             </div>
             {isOpen && (
@@ -53,7 +55,7 @@ function DropDown({title,options,callback}) {
                         </div>
                         {options.map(option => (
                         <div onClick={onOptionClicked(option)} className={styles.dropdownListItem} key={Math.random()}>
-                            {option.name}
+                            {t(option.name)}
                         </div>
                         ))}
                     </div>
