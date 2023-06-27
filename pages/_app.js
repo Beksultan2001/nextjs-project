@@ -1,11 +1,8 @@
-import Layout from '../components/Layout'
-// import '../styles/globals.css'
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-function MyApp({ Component, pageProps }) {
+function MyApp() {
   return (
-      <div>test</div>
+      <div style={{display: 'flex', justifyContent: 'center',alignItems: 'center', padding: '24px 32px',fontWeight: 600,minHeight: '80vh',fontSize: '30px'}}>404 not found</div>
   )
 }
 
