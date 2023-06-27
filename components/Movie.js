@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import Image from 'next/image';
-import styles from '../styles/page.module.css';
+import styles from '../styles/Page.module.css';
 import Link from "next/link";
 import { useContext } from "react";
 import { Message_data } from '@/context/context';

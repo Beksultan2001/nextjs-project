@@ -1,18 +1,47 @@
 import axios from 'axios';
 
 export default class Http {
-    static url='http://127.0.0.1:3001';
+    static url = process.env.BASE_URL || 'http://127.0.0.1:3001';
 
-    static getMovies(cinemaId){
-        return axios.get(`${this.url}/api/movies?cinemaId=${cinemaId}`);
+    static async getMovies(cinemaId) {
+        try {
+            const response = await axios.get(`${this.url}/api/movies`, {
+                params: { cinemaId },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
     }
-    static getSingleMovie(movieId){
-        return axios.get(`${this.url}/api/movie?movieId=${movieId}`);
+
+    static async getSingleMovie(movieId) {
+        try {
+            const response = await axios.get(`${this.url}/api/movie`, {
+                params: { movieId },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
     }
-    static getComments(movieId){
-        return axios.get(`${this.url}/api/reviews?movieId=${movieId}`);
+
+    static async getComments(movieId) {
+        try {
+            const response = await axios.get(`${this.url}/api/reviews`, {
+                params: { movieId },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
     }
-    static getCinemas(){
-        return axios.get(this.url+'/api/cinemas');
+
+    static async getCinemas() {
+        try {
+            const response = await axios.get(`${this.url}/api/cinemas`);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
     }
 }

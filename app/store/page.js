@@ -20,7 +20,7 @@ function Page() {
         }
     </div>
     <div style={{display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', padding: '24px', borderRadius: '8px'}}>
-        <strong>Итого билетов:</strong><strong>7</strong>
+        <strong>Итого билетов:</strong><strong>{Object.values(state).reduce((a, b) => a + (b?.count || 0), 0)}</strong>
     </div>
 </section>
   )

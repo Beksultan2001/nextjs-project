@@ -1,6 +1,6 @@
 'use client';
 import React,{useEffect} from 'react';
-import styles from '../styles/page.module.css';
+import styles from '../styles/Page.module.css';
 import Bag from '../public/icons/Bag';
 import Link from 'next/link';
 import { useContext } from "react";

@@ -1,6 +1,6 @@
 'use client'
 import React,{useState} from 'react'
-import styles from '../styles/page.module.css';
+import styles from '../styles/Page.module.css';
 import Expand from '@/public/icons/Expand';
 import Collapsed from '@/public/icons/Collapsed';
 

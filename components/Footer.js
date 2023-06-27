@@ -1,6 +1,6 @@
 'use strict';
 import * as React from 'react';
-import styles from '../styles/page.module.css';
+import styles from '../styles/Page.module.css';
 import Link from 'next/link';
 
 export default function Footer() {

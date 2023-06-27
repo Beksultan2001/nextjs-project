@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/page.module.css';
+import styles from '../styles/Page.module.css';
 import DropDown from './Dropdown';
 import { useContext } from 'react';
 import { Message_data } from "../context/context";
@@ -23,7 +23,7 @@ function Sidebar() {
 
   const fetchData = async () => {
     let getList = await Http.getCinemas();
-    setCinemas(getList.data);
+    setCinemas(getList);
   }
 
   useEffect(function() {
@@ -49,8 +49,8 @@ function Sidebar() {
   }
 
   useEffect(function(){
-    console.log(genreFilter,'genreFilter')
-  },[genreFilter]);
+    console.log(cinemas,'cinemas')
+  },[cinemas]);
 
 
   return (

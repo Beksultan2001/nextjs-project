@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import styles from '../styles/page.module.css';
+import styles from '../styles/Page.module.css';
 import Expand from '../public/icons/Expand';
 import Collapsed from '../public/icons/Collapsed';
 import { Message_data } from "@/context/context";
@@ -19,6 +19,8 @@ function DropDown({title,options,callback,placeholder,defaultOption}) {
   };
 
   useEffect(() => {
+    console.log(options,'options')
+
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
@@ -34,7 +36,6 @@ function DropDown({title,options,callback,placeholder,defaultOption}) {
 
   const onOptionClicked = value => () => {
     callback(value);
-    // setSelectedOption(value.name);
     setIsOpen(false);
   };
 

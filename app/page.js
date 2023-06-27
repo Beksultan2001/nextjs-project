@@ -1,11 +1,12 @@
 'use client';
 import { useState,useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
-import styles from '../styles/page.module.css';
+import styles from '../styles/Page.module.css';
 import Movie from '../components/Movie';
 import Http from '../api/Http';
 import { useContext } from "react";
 import { Message_data } from "../context/context";
+import Loader from '@/components/Loader';
 
 
 function Page() {
@@ -16,18 +17,18 @@ function Page() {
 
   const fetchData = async () => {
     const getList = await Http.getMovies(cinemaId);
-
+    console.log(getList,'list');
     //get genres
     let genres=new Set;
-    getList.data.forEach((t) => {
+    getList.forEach((t) => {
       genres.add(t.genre);
     });
     
     setGenres(Array.from(genres).map((t,idx) => {
       return {name: t,id: idx}
     }));
-    setMovies(getList.data);
-    setAllMovies(getList.data);
+    setMovies(getList);
+    setAllMovies(getList);
     setLoader(false);
 
   }
@@ -56,7 +57,7 @@ function Page() {
       <Sidebar />
       <section>
         {loader ? (
-          <h1 style={{display: 'flex',justifyContent: 'center',alignItems: 'center'}}>Загружается...</h1>
+          <Loader/>
         ) : (
           movies.map((t, idx) => {
             return(
